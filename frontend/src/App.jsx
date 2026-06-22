@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, useLocation} from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Cart from './pages/Cart'
@@ -14,6 +14,7 @@ import SearchBar from './components/SearchBar'
 import { ToastContainer } from 'react-toastify'
 
 export const App = () => {
+  const location = useLocation();
   return (
     <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
     <ToastContainer />
@@ -30,7 +31,7 @@ export const App = () => {
           <Route path='/place-order' element={<PlaceOrder />} />
           <Route path='/product/:productId' element={<Product />} />
       </Routes>
-    <Footer />
+      {location.pathname !== "/login" ? <Footer /> : null}
     </div>
   )
 }
