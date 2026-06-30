@@ -5,6 +5,7 @@ import connectCloudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import cors from "cors";
+import cartRouter from "./routes/cartRoutes.js";
 
 
 dotenv.config({quiet : true});
@@ -19,6 +20,7 @@ app.use(cors());
 
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
+app.use("/api/cart", cartRouter);
 
 
 app.get("/", (req, res) => res.status(201).send("App Running"));

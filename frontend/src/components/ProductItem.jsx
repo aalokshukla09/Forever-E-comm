@@ -7,7 +7,7 @@ const ProductItem = ({ _id, images, name, price }) => {
 
   // Ensure `image` is an array and has at least one element
   const productImage = Array.isArray(images) && images.length > 0 ? images[0] : "placeholder.jpg";
-  console.log({ _id, images, name, price });
+  // console.log({ _id, images, name, price });
 
   return (
     <Link className='text-gray-700 cursor-pointer' to={_id ? `/product/${_id}` : '#'}>

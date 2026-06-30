@@ -9,23 +9,19 @@ const Product = () => {
 
   const {productId} = useParams();
   const {products, currency, addToCart} = useContext(ShopContext);
-  const [productData, setProductData] = useState(false);
+  const [productData, setProductData] = useState(null);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
 
   const fetchProductData = () => {
+    const product = products.find((item) => item._id === productId);
+    if (product) {
+      setProductData(product);
+      setImage(product.images[0]); // Assuming `image` is an array of URLs
+    }
+  };
 
-    products.map(item => {
-      if(item._id === productId){
-        setProductData(item);
-        // console.log(item);
-        setImage(item.image[0]);
-       return null; // Return null to stop further iterations
-      }
-    })
-
-
-  }
+  // console.log(productData);
 
   useEffect(() => {
     fetchProductData();
@@ -40,7 +36,7 @@ const Product = () => {
           <div className='flex sm:flex-col overflow-x-auto  sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full'>
             
             {
-              productData.image.map((item, index) => (
+              productData.images.map((item, index) => (
                 <img onClick={() => setImage(item)} src={item} key={index} className='w-[24%] sm:w-full sm:mb-3 shrink-0 cursor-pointer' alt="" />
               ))
             }
@@ -67,7 +63,10 @@ const Product = () => {
             <p>Select Size</p>
             <div className='flex gap-2'>
               {productData.sizes.map((item, index) => (
-                <button onClick={() => setSize(item)} className={`border py-2 px-4 bg-gray-100 ${item === size ? 'border-orange-500' : ''}`} key={index}> {item}</button>
+                <button onClick={() => setSize(size === item ? "" : item)} className={`py-2 px-4 border transition-colors duration-200 ${item === size
+                    ? "bg-black text-white border-black"
+                    : "bg-gray-100 text-black border-gray-300"
+                  }`} key={index}> {item}</button>
               ))}
             </div>
 
